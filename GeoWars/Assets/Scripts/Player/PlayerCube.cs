@@ -270,7 +270,7 @@ public class @PlayerCube : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""3a76b42f-68f9-4055-a34c-5492f2ba9c22"",
                     ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Disguise"",
@@ -960,7 +960,7 @@ public class @PlayerCube : IInputActionCollection, IDisposable
                 @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Disguise.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDisguise;
                 @Disguise.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDisguise;
-                @Disguise.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReleaseDisguise;
+                @Disguise.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDisguise;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -982,7 +982,7 @@ public class @PlayerCube : IInputActionCollection, IDisposable
                 @Pause.canceled += instance.OnPause;
                 @Disguise.started += instance.OnDisguise;
                 @Disguise.performed += instance.OnDisguise;
-                @Disguise.canceled += instance.OnReleaseDisguise;
+                @Disguise.canceled += instance.OnDisguise;
             }
         }
     }
@@ -1145,7 +1145,6 @@ public class @PlayerCube : IInputActionCollection, IDisposable
         void OnMeleeAttack(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnDisguise(InputAction.CallbackContext context);
-        void OnReleaseDisguise(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

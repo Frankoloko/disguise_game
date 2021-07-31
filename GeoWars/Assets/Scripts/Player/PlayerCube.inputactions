@@ -257,7 +257,7 @@
                     "name": "",
                     "id": "3a76b42f-68f9-4055-a34c-5492f2ba9c22",
                     "path": "<Keyboard>/e",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Disguise",

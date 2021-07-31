@@ -3,23 +3,33 @@ using UnityEngine.InputSystem;
 
 public class PlayerDisguise : MonoBehaviour
 {
-
     public GameObject PlayerBody;
+    private Mesh PlayerOriginalMesh;
+    private Vector3 PlayerOriginalScale;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Here we save the player's original body mesh and scale
+        PlayerOriginalMesh = PlayerBody.GetComponent<MeshFilter>().mesh;
+        PlayerOriginalScale = PlayerBody.transform.localScale;
     }
 
     private void OnDisguise(InputValue value)
     {
+        if (value.Get<float>() == 1.0)
+        {
+            PressDisguise();
+        }
+        else
+        {
+            ReleaseDisguise();
+        }
+    }
+
+    private void PressDisguise()
+    {
+        // On PressDisguise, we transform the player's body into the nearest disguise object
+
         // Get the closest object to disguise to
         GameObject[] enemies = {GameObject.Find("Jerry"), GameObject.Find("Cylinder_01"), GameObject.Find("Sphere")};
         GameObject closet_object = GetClosestObject(enemies);
@@ -34,6 +44,13 @@ public class PlayerDisguise : MonoBehaviour
         // Uncommenting the below because it doesn't work like you'd expect. Regardless, I'm not sure if it will work at all since the objects might have different origins
         // Set the player's Y-Position to the same as the closest object
         // PlayerBody.transform.position = new Vector3(PlayerBody.transform.position.x, closet_object.transform.position.y, PlayerBody.transform.position.z);
+    }
+
+    private void ReleaseDisguise()
+    {
+        // On ReleaseDisguise, we transform the player's body back into it's original body
+        PlayerBody.GetComponent<MeshFilter>().sharedMesh = PlayerOriginalMesh;
+        PlayerBody.transform.localScale = PlayerOriginalScale;
     }
 
     GameObject GetClosestObject(GameObject[] enemies)
@@ -54,10 +71,5 @@ public class PlayerDisguise : MonoBehaviour
         }
      
         return bestTarget;
-    }
-
-    private void OnReleaseDisguise(InputValue value)
-    {
-        Debug.Log("Released!");
     }
 }
