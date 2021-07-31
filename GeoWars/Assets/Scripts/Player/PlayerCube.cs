@@ -57,6 +57,14 @@ public class @PlayerCube : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Disguise"",
+                    ""type"": ""Button"",
+                    ""id"": ""49971b64-6752-4ef6-852f-f84174518436"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -255,6 +263,17 @@ public class @PlayerCube : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a76b42f-68f9-4055-a34c-5492f2ba9c22"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Disguise"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -837,6 +856,7 @@ public class @PlayerCube : IInputActionCollection, IDisposable
         m_Player_DrawWeapon = m_Player.FindAction("Draw Weapon", throwIfNotFound: true);
         m_Player_MeleeAttack = m_Player.FindAction("MeleeAttack", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_Disguise = m_Player.FindAction("Disguise", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -903,6 +923,7 @@ public class @PlayerCube : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_DrawWeapon;
     private readonly InputAction m_Player_MeleeAttack;
     private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_Disguise;
     public struct PlayerActions
     {
         private @PlayerCube m_Wrapper;
@@ -912,6 +933,7 @@ public class @PlayerCube : IInputActionCollection, IDisposable
         public InputAction @DrawWeapon => m_Wrapper.m_Player_DrawWeapon;
         public InputAction @MeleeAttack => m_Wrapper.m_Player_MeleeAttack;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @Disguise => m_Wrapper.m_Player_Disguise;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -936,6 +958,9 @@ public class @PlayerCube : IInputActionCollection, IDisposable
                 @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Disguise.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDisguise;
+                @Disguise.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDisguise;
+                @Disguise.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReleaseDisguise;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -955,6 +980,9 @@ public class @PlayerCube : IInputActionCollection, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @Disguise.started += instance.OnDisguise;
+                @Disguise.performed += instance.OnDisguise;
+                @Disguise.canceled += instance.OnReleaseDisguise;
             }
         }
     }
@@ -1116,6 +1144,8 @@ public class @PlayerCube : IInputActionCollection, IDisposable
         void OnDrawWeapon(InputAction.CallbackContext context);
         void OnMeleeAttack(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnDisguise(InputAction.CallbackContext context);
+        void OnReleaseDisguise(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
