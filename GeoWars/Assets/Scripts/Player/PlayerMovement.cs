@@ -8,6 +8,8 @@ namespace Player
         [SerializeField] private float moveSpeed = 1f;
         [SerializeField] private float turnSpeed = 0.15f;
 
+        public static bool disableMovement = false; // Used in PlayerDisguise to stop the player from moving when disguised
+
         private Vector3 _direction;
 
         //Replace
@@ -23,6 +25,12 @@ namespace Player
 
         private void Update()
         {
+            if (disableMovement)
+            {
+                // Used in PlayerDisguise to stop the player from moving when disguised
+                return;
+            }
+
             transform.Translate(_direction * (moveSpeed * Time.deltaTime), Space.World);
 
             if (_direction.x != 0 || _direction.z != 0)

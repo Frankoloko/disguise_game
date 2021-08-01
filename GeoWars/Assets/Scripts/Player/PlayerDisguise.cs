@@ -28,6 +28,8 @@ public class PlayerDisguise : MonoBehaviour
 
     private void PressDisguise()
     {
+        Player.PlayerMovement.disableMovement = true;
+
         // On PressDisguise, we transform the player's body into the nearest disguise object
 
         // Get the closest object to disguise to
@@ -48,6 +50,8 @@ public class PlayerDisguise : MonoBehaviour
 
     private void ReleaseDisguise()
     {
+        Player.PlayerMovement.disableMovement = false;
+
         // On ReleaseDisguise, we transform the player's body back into it's original body
         PlayerBody.GetComponent<MeshFilter>().sharedMesh = PlayerOriginalMesh;
         PlayerBody.transform.localScale = PlayerOriginalScale;
