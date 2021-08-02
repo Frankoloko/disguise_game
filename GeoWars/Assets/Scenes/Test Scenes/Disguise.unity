@@ -1610,6 +1610,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 6785577740467712328, guid: 5a32a84df0c3c294c89ce42babc310eb, type: 3}
+      propertyPath: disableMovement
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6785577740467712341, guid: 5a32a84df0c3c294c89ce42babc310eb, type: 3}
       propertyPath: m_Name
       value: Player
