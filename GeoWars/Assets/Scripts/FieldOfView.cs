@@ -69,6 +69,10 @@ public class FieldOfView : MonoBehaviour
 		VisibleTarget = null;
 		Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
 
+		if (Player.PlayerDisguise.isDisguised) {
+			return;
+		}
+
 		for (int i = 0; i < targetsInViewRadius.Length; i++)
 		{
 			Transform target = targetsInViewRadius[i].transform;

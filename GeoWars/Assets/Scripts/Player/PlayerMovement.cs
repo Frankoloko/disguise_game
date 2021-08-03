@@ -8,8 +8,6 @@ namespace Player
         [SerializeField] private float moveSpeed = 1f;
         [SerializeField] private float turnSpeed = 0.15f;
 
-        public static bool disableMovement = false; // Used in PlayerDisguise to stop the player from moving when disguised
-
         private Vector3 _direction;
 
         //Replace
@@ -25,9 +23,8 @@ namespace Player
 
         private void Update()
         {
-            if (disableMovement)
+            if (Player.PlayerDisguise.isDisguised)
             {
-                // Used in PlayerDisguise to stop the player from moving when disguised
                 return;
             }
 
