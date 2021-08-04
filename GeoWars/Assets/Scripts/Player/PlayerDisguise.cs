@@ -6,7 +6,7 @@ namespace Player
     public class PlayerDisguise : MonoBehaviour
     {
         public GameObject PlayerBody;
-        public float maxDistance = 5F;
+        public float maxDistance = 2.5F;
         public static bool isDisguised = false;
 
         private Mesh PlayerOriginalMesh;
